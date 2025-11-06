@@ -54,9 +54,7 @@
   }
 
   .btn-secondary {
-    @apply px-8 py-3 border border-slate-300 text-slate-900 rounded-lg font-light 
-           hover:border-slate-400 hover:bg-slate-50 transition-all duration-300
-           focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2;
+    @apply px-8 py-3 border-2 border-blue-400 text-blue-400 rounded-lg font-medium transition-all duration-300 bg-transparent;
   }
 
   .btn-ghost {
