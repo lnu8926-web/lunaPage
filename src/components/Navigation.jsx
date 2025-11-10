@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Sun, Moon, Menu, X } from "lucide-react";
+import { Tooltip } from "react-tooltip";
 
 const Navigation = ({
   isMenuOpen,
@@ -10,6 +11,21 @@ const Navigation = ({
   toggleTheme,
   themeClasses,
 }) => {
+  const [showTooltip, setShowTooltip] = useState(false);
+  useEffect(() => {
+    const openTimer = setTimeout(() => {
+      setShowTooltip(true);
+    }, 1000);
+
+    const closeTimer = setTimeout(() => {
+      setShowTooltip(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(openTimer);
+      clearTimeout(closeTimer);
+    };
+  }, []);
   return (
     <nav
       className={`fixed top-0 w-full backdrop-blur-md z-50 border-b theme-transition ${
@@ -24,16 +40,21 @@ const Navigation = ({
             {/* 테마 토글 버튼 */}
             <button
               onClick={toggleTheme}
-              className={`theme-toggle p-2 rounded-lg transition-all duration-300 hover-scale ${
+              className={`themetooltip theme-toggle p-2 rounded-lg transition-all duration-300 hover-scale ${
                 isDark
                   ? "hover:bg-slate-800 text-yellow-400"
                   : "hover:bg-slate-100 text-orange-500"
               }`}
               aria-label="테마 변경"
+              data-tooltip-id="themetooltip"
+              data-tooltip-content={
+                isDark ? "Change LightMode" : "Change DarkMode"
+              }
+              data-tooltip-place="bottom"
             >
               {isDark ? <Moon size={24} /> : <Sun size={24} />}
             </button>
-
+            <Tooltip id="themetooltip" isOpen={showTooltip} />
             <span
               className={`luna-font home-title text-2xl tracking-wider gradient-text animate-fade-in`}
             >
